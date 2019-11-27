@@ -112,7 +112,7 @@ function initialize()
 	new THREE.MTLLoader()
 		.setPath( 'models/' )
 		.load( 'renne2.mtl', function ( materials ) {
-			materials.preload();
+			//materials.preload();
 			new THREE.OBJLoader()
 				.setMaterials( materials )
 				.setPath( 'models/' )
