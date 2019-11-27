@@ -109,7 +109,7 @@ function initialize()
 	function onProgress(xhr) { console.log( (xhr.loaded / xhr.total * 100) + '% loaded' ); }
 	function onError(xhr) { console.log( 'An error happened' ); }
 	
-	new THREE.MTLLoader()
+	new THREE.MTLLoader({ precision: 'mediump' })
 		.setPath( 'models/' )
 		.load( 'renne2.mtl', function ( materials ) {
 			materials.preload();
