@@ -112,14 +112,14 @@ function initialize()
 	new THREE.MTLLoader()
 		.setPath( 'models/' )
 		.load( 'renne2.mtl', function ( materials ) {
-			//materials.preload();
+			materials.preload();
 			new THREE.OBJLoader()
 				.setMaterials( materials )
 				.setPath( 'models/' )
 				.load( 'renne2.obj', function ( group ) {
 					mesh0 = group.children[0];
 					mesh0.material.side = THREE.DoubleSide;
-					mesh0.material.precision = 'mediump';
+					mesh0.material.precision = 'lowp'; // mediump ? lowp ?
 					mesh0.position.y = 0.25;
 					mesh0.scale.set(0.25,0.25,0.25);
 					markerRoot1.add(mesh0);
