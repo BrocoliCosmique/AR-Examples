@@ -5,7 +5,7 @@
 	<script src='js/keyboard.js'></script>
 	<!-- include three.js library -->
 	<script src='js/three.js'></script>
-	<script src='js/OBJLoader.js'></script>
+	<script src='js/GLTFLoader.js'></script>
 	<!-- include jsartookit -->
 	<script src="jsartoolkit5/artoolkit.min.js"></script>
 	<script src="jsartoolkit5/artoolkit.api.js"></script>
@@ -35,11 +35,45 @@ var sceneGroup;
 
 var mesh1; // rotating targets?
 
-var objLoader = new THREE.OBJLoader();
-objLoader.load(
-'models/belt.glb',
-function(object){scene.add(object);}
-);
+		// Instantiate a loader
+		var loader = new THREE.GLTFLoader();
+
+		// Optional: Provide a DRACOLoader instance to decode compressed mesh data
+		<!-- var dracoLoader = new THREE.DRACOLoader(); -->
+		<!-- dracoLoader.setDecoderPath( '/examples/js/libs/draco/' ); -->
+		<!-- loader.setDRACOLoader( dracoLoader ); -->
+
+		// Load a glTF resource
+		loader.load(
+			// resource URL
+			'models/belt.glb',
+			// called when the resource is loaded
+			function ( gltf ) {
+
+				scene.add( gltf.scene );
+
+				gltf.animations; // Array<THREE.AnimationClip>
+				gltf.scene; // THREE.Scene
+				gltf.scenes; // Array<THREE.Scene>
+				gltf.cameras; // Array<THREE.Camera>
+				gltf.asset; // Object
+
+			},
+			// called while loading is progressing
+			function ( xhr ) {
+
+				console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+			},
+			// called when loading has errors
+			function ( error ) {
+
+				console.log( 'An error happened' );
+
+			}
+		);
+
+
 
 initialize();
 animate();
