@@ -29,6 +29,7 @@ var scene, camera, renderer, clock, deltaTime, totalTime;
 var arToolkitSource, arToolkitContext;
 var markerRoot1;
 var mesh1;
+		let mixer; // Ajout pour GLTF -- Cyril
 initialize();
 animate();
 function initialize()
@@ -144,7 +145,12 @@ function initialize()
 
 				markerRoot1.add( gltf.scene );
 
-				gltf.animations; // Array<THREE.AnimationClip>
+				//gltf.animations; // Array<THREE.AnimationClip>
+				const model = gltf.scene;
+				mixer = new THREE.AnimationMixer( model );
+				gltf.animations.forEach(( clip ) => {
+					mixer.clipAction(clip).play();
+				});
 				gltf.scene; // THREE.Scene
 				gltf.scenes; // Array<THREE.Scene>
 				gltf.cameras; // Array<THREE.Camera>
@@ -180,6 +186,7 @@ function animate()
 	requestAnimationFrame(animate);
 	deltaTime = clock.getDelta();
 	totalTime += deltaTime;
+	mixer.update(deltaTime);
 	update();
 	render();
 }
