@@ -2,7 +2,7 @@
 <head>
 	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 	<title>Hello, world!</title>
-	<!-- <script src='js/keyboard.js'></script> -->
+	<script src='js/keyboard.js'></script>
 	<!-- include three.js library -->
 	<script src='js/three.js'></script>
 	<script src='js/GLTFLoader.js'></script>
@@ -35,6 +35,43 @@ var sceneGroup;
 
 var mesh1; // rotating targets?
 
+		// Instantiate a loader
+		var loader = new THREE.GLTFLoader();
+
+		// Optional: Provide a DRACOLoader instance to decode compressed mesh data
+		<!-- var dracoLoader = new THREE.DRACOLoader(); -->
+		<!-- dracoLoader.setDecoderPath( '/examples/js/libs/draco/' ); -->
+		<!-- loader.setDRACOLoader( dracoLoader ); -->
+
+		// Load a glTF resource
+		loader.load(
+			// resource URL
+			'models/belt.glb',
+			// called when the resource is loaded
+			function ( gltf ) {
+
+				scene.add( gltf.scene );
+
+				gltf.animations; // Array<THREE.AnimationClip>
+				gltf.scene; // THREE.Scene
+				gltf.scenes; // Array<THREE.Scene>
+				gltf.cameras; // Array<THREE.Camera>
+				gltf.asset; // Object
+
+			},
+			// called while loading is progressing
+			function ( xhr ) {
+
+				console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+			},
+			// called when loading has errors
+			function ( error ) {
+
+				console.log( 'An error happened' );
+
+			}
+		);
 
 
 
@@ -65,7 +102,7 @@ function initialize()
 	clock = new THREE.Clock();
 	deltaTime = 0;
 	totalTime = 0;
-	<!-- keyboard = new Keyboard(); -->
+	keyboard = new Keyboard();
 	
 	////////////////////////////////////////////////////////////
 	// setup arToolkitSource
@@ -149,48 +186,9 @@ function initialize()
 	
 	mesh1 = new THREE.Mesh( geometry1, material1 );
 	mesh1.position.y = -1;
-	//mesh1.scale.set(.1,.1,.1);
+	mesh1.scale.set(2,2,2);
 	
 	sceneGroup.add( mesh1 );
-	
-	
-		// Instantiate a loader
-		var loader = new THREE.GLTFLoader();
-
-		// Optional: Provide a DRACOLoader instance to decode compressed mesh data
-		<!-- var dracoLoader = new THREE.DRACOLoader(); -->
-		<!-- dracoLoader.setDecoderPath( '/examples/js/libs/draco/' ); -->
-		<!-- loader.setDRACOLoader( dracoLoader ); -->
-
-		// Load a glTF resource
-		loader.load(
-			// resource URL
-			'models/animated_deer.glb',
-			// called when the resource is loaded
-			function ( gltf ) {
-
-				sceneGroup.add( gltf.scene );
-
-				gltf.animations; // Array<THREE.AnimationClip>
-				gltf.scene; // THREE.Scene
-				gltf.scenes; // Array<THREE.Scene>
-				gltf.cameras; // Array<THREE.Camera>
-				gltf.asset; // Object
-
-			},
-			// called while loading is progressing
-			function ( xhr ) {
-
-				console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-
-			},
-			// called when loading has errors
-			function ( error ) {
-
-				console.log( 'An error happened' );
-
-			}
-		);
 	
 	// the invisibility cloak (plane with a hole)
 	let geometry0 = new THREE.PlaneGeometry(18,18, 9,9);
@@ -216,7 +214,7 @@ function initialize()
 
 function update()
 {
-	<!-- keyboard.update(); -->
+	keyboard.update();
 	
 	let anyMarkerVisible = false;
 	for (let i = 0; i < markerArray.length; i++)
