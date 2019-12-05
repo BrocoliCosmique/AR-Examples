@@ -2,7 +2,7 @@
 <head>
 	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 	<title>Hello, world!</title>
-	<script src='js/keyboard.js'></script>
+	<!-- <script src='js/keyboard.js'></script> -->
 	<!-- include three.js library -->
 	<script src='js/three.js'></script>
 	<script src='js/GLTFLoader.js'></script>
@@ -102,7 +102,7 @@ function initialize()
 	clock = new THREE.Clock();
 	deltaTime = 0;
 	totalTime = 0;
-	keyboard = new Keyboard();
+	<!-- keyboard = new Keyboard(); -->
 	
 	////////////////////////////////////////////////////////////
 	// setup arToolkitSource
@@ -214,7 +214,7 @@ function initialize()
 
 function update()
 {
-	keyboard.update();
+	<!-- keyboard.update(); -->
 	
 	let anyMarkerVisible = false;
 	for (let i = 0; i < markerArray.length; i++)
