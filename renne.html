@@ -177,9 +177,9 @@ function initialize()
 function newModel(scene, patternToMatch, modelURL)
 {
 
-	markerRoot1 = new THREE.Group();
-	scene.add(markerRoot1);
-	let markerControls1 = new THREEx.ArMarkerControls(arToolkitContext, markerRoot1, {
+	let markerRoot = new THREE.Group();
+	scene.add(markerRoot);
+	let markerControls = new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
 		type: 'pattern', patternUrl: patternToMatch,
 	})
 	
@@ -197,7 +197,7 @@ function newModel(scene, patternToMatch, modelURL)
 			// called when the resource is loaded
 			function ( gltf ) {
 
-				markerRoot1.add( gltf.scene );
+				markerRoot.add( gltf.scene );
 
 				//gltf.animations; // Array<THREE.AnimationClip>
 				const model = gltf.scene;
