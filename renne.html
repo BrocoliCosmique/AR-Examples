@@ -27,8 +27,8 @@
 <script>
 var scene, camera, renderer, clock, deltaTime, totalTime;
 var arToolkitSource, arToolkitContext;
-var markerRoot1;
-var mesh1;
+<!-- var markerRoot1; -->
+<!-- var mesh1; -->
 		let mixer; // Ajout pour GLTF -- Cyril
 initialize();
 animate();
@@ -95,83 +95,10 @@ function initialize()
 	////////////////////////////////////////////////////////////
 	// setup markerRoots
 	////////////////////////////////////////////////////////////
-	// build markerControls
-	markerRoot1 = new THREE.Group();
-	scene.add(markerRoot1);
-	let markerControls1 = new THREEx.ArMarkerControls(arToolkitContext, markerRoot1, {
-		type: 'pattern', patternUrl: "data/hiro.patt",
-	})
-	<!-- let geometry1 = new THREE.PlaneBufferGeometry(1,1, 4,4); -->
-	<!-- let loader = new THREE.TextureLoader(); -->
-	// let texture = loader.load( 'images/earth.jpg', render );
-	<!-- let material1 = new THREE.MeshBasicMaterial( { color: 0x0000ff, opacity: 0.5 } ); -->
-	<!-- mesh1 = new THREE.Mesh( geometry1, material1 ); -->
-	<!-- mesh1.rotation.x = -Math.PI/2; -->
-	<!-- markerRoot1.add( mesh1 ); -->
 	
-	function onProgress(xhr) { console.log( (xhr.loaded / xhr.total * 100) + '% loaded' ); }
-	function onError(xhr) { console.log( 'An error happened' ); }
-	
-	/*new THREE.MTLLoader()
-		.setPath( 'models/' )
-		.load( 'deer3.mtl', function ( materials ) {
-			materials.preload();
-			new THREE.OBJLoader()
-				.setMaterials( materials )
-				.setPath( 'models/' )
-				.load( 'deer3.obj', function ( group ) {
-					mesh0 = group.children[0];
-					mesh0.material.side = THREE.DoubleSide;
-					//mesh0.material.precision = 'lowp'; // mediump ? lowp ?
-					mesh0.position.y = 0.25;
-					mesh0.scale.set(0.25,0.25,0.25);
-					markerRoot1.add(mesh0);
-				}, onProgress, onError );
-		});*/
-	// Instantiate a loader
-		var loader = new THREE.GLTFLoader();
-
-		// Optional: Provide a DRACOLoader instance to decode compressed mesh data
-		<!-- var dracoLoader = new THREE.DRACOLoader(); -->
-		<!-- dracoLoader.setDecoderPath( '/examples/js/libs/draco/' ); -->
-		<!-- loader.setDRACOLoader( dracoLoader ); -->
-
-		// Load a glTF resource
-		loader.load(
-			// resource URL
-			'models/animated_deer.glb',
-			// called when the resource is loaded
-			function ( gltf ) {
-
-				markerRoot1.add( gltf.scene );
-
-				//gltf.animations; // Array<THREE.AnimationClip>
-				const model = gltf.scene;
-				mixer = new THREE.AnimationMixer( model );
-				gltf.animations.forEach(( clip ) => {
-					mixer.clipAction(clip).play();
-				});
-				gltf.scene; // THREE.Scene
-				gltf.scenes; // Array<THREE.Scene>
-				gltf.cameras; // Array<THREE.Camera>
-				gltf.asset; // Object
-
-			},
-			// called while loading is progressing
-			function ( xhr ) {
-
-				console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-
-			},
-			// called when loading has errors
-			function ( error ) {
-
-				console.log( 'An error happened' );
-
-			}
-		);
-		
-	newModel(scene, "data/kanji.patt", 'models/belt.gltf');
+	newModel(scene, "data/hiro.patt", 'models/animated_deer.glb');
+	newModel(scene, "data/kanji.patt", 'models/sapin.glb');
+	newModel(scene, "data/letterB.patt", 'models/belt.gltf');
 }
 
 function newModel(scene, patternToMatch, modelURL)
