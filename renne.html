@@ -35,7 +35,7 @@ animate();
 function initialize()
 {
 	scene = new THREE.Scene();
-	let ambientLight = new THREE.AmbientLight( 0xcccccc, 1.0 );
+	let ambientLight = new THREE.AmbientLight( 0xffffff, 2.0 );
 	scene.add( ambientLight );
 				
 	camera = new THREE.Camera();
@@ -43,7 +43,7 @@ function initialize()
 	renderer = new THREE.WebGLRenderer({
 		antialias : true,
 		alpha: true,
-		precision: 'mediump'
+		precision: 'lowp'
 	});
 	renderer.setClearColor(new THREE.Color('lightgrey'), 0)
 	renderer.setSize( 640, 480 );
