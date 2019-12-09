@@ -179,7 +179,7 @@ function animate()
 {
 	requestAnimationFrame(animate);
 	totalTime += deltaTime;
-	mixer.update(clock.getDelta());
+	mixer.update(clock.getDelta()*.001);
 	update();
 	render();
 }
