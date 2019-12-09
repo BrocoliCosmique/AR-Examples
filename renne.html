@@ -131,9 +131,18 @@ function newModel(scene, patternToMatch, modelURL)
 				//gltf.animations; // Array<THREE.AnimationClip>
 				const model = gltf.scene;
 				mixer = new THREE.AnimationMixer( model );
-				gltf.animations.forEach(( clip ) => {
-					mixer.clipAction(clip).play();
-				});
+				var animations = gltf.animations;
+					if ( animations && animations.length ) {
+						mixer = new THREE.AnimationMixer( model );
+						for ( var i = 0; i < animations.length; i ++ ) {
+							var animation = animations[ i ];
+							if ( scene.animationTime ) {
+								animation.duration = scene.animationTime;
+							}
+							var action = mixer.clipAction( animation );
+							action.play();
+						}
+					}
 				gltf.scene; // THREE.Scene
 				gltf.scenes; // Array<THREE.Scene>
 				gltf.cameras; // Array<THREE.Camera>
@@ -169,9 +178,8 @@ function render()
 function animate()
 {
 	requestAnimationFrame(animate);
-	deltaTime = clock.getDelta();
 	totalTime += deltaTime;
-	mixer.update(deltaTime);
+	mixer.update(clock.getDelta());
 	update();
 	render();
 }
