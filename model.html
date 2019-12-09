@@ -4,8 +4,9 @@
 	<title>Hello, world!</title>
 	<!-- include three.js library -->
 	<script src='js/three.js'></script>
-	<script src='js/OBJLoader.js'></script>
-	<script src='js/MTLLoader.js'></script>
+	<script src='js/GLTFLoader.js'></script>
+	<!-- <script src='js/OBJLoader.js'></script> -->
+	<!-- <script src='js/MTLLoader.js'></script> -->
 	<!-- include jsartookit -->
 	<script src="jsartoolkit5/artoolkit.min.js"></script>
 	<script src="jsartoolkit5/artoolkit.api.js"></script>
@@ -24,39 +25,32 @@
 -->
 
 <script>
-
 var scene, camera, renderer, clock, deltaTime, totalTime;
-
 var arToolkitSource, arToolkitContext;
-
-var markerRoot1;
-
-var mesh1;
-
+<!-- var markerRoot1; -->
+<!-- var mesh1; -->
+		let mixer; // Ajout pour GLTF -- Cyril
 initialize();
 animate();
-
 function initialize()
 {
 	scene = new THREE.Scene();
-
-	let ambientLight = new THREE.AmbientLight( 0xcccccc, 1.0 );
+	let ambientLight = new THREE.AmbientLight( 0xcccccc, 2.0 );
 	scene.add( ambientLight );
 				
 	camera = new THREE.Camera();
 	scene.add(camera);
-
 	renderer = new THREE.WebGLRenderer({
 		antialias : true,
-		alpha: true
+		alpha: true,
+		precision: 'lowp'
 	});
-	renderer.setClearColor(new THREE.Color('lightgrey'), 0)
+	renderer.setClearColor(new THREE.Color('white'), 0)
 	renderer.setSize( 640, 480 );
 	renderer.domElement.style.position = 'absolute'
 	renderer.domElement.style.top = '0px'
 	renderer.domElement.style.left = '0px'
 	document.body.appendChild( renderer.domElement );
-
 	clock = new THREE.Clock();
 	deltaTime = 0;
 	totalTime = 0;
@@ -64,11 +58,9 @@ function initialize()
 	////////////////////////////////////////////////////////////
 	// setup arToolkitSource
 	////////////////////////////////////////////////////////////
-
 	arToolkitSource = new THREEx.ArToolkitSource({
 		sourceType : 'webcam',
 	});
-
 	function onResize()
 	{
 		arToolkitSource.onResize()	
@@ -78,7 +70,6 @@ function initialize()
 			arToolkitSource.copySizeTo(arToolkitContext.arController.canvas)	
 		}	
 	}
-
 	arToolkitSource.init(function onReady(){
 		onResize()
 	});
@@ -91,7 +82,6 @@ function initialize()
 	////////////////////////////////////////////////////////////
 	// setup arToolkitContext
 	////////////////////////////////////////////////////////////	
-
 	// create atToolkitContext
 	arToolkitContext = new THREEx.ArToolkitContext({
 		cameraParametersUrl: 'data/camera_para.dat',
@@ -102,44 +92,68 @@ function initialize()
 	arToolkitContext.init( function onCompleted(){
 		camera.projectionMatrix.copy( arToolkitContext.getProjectionMatrix() );
 	});
-
 	////////////////////////////////////////////////////////////
 	// setup markerRoots
 	////////////////////////////////////////////////////////////
+	
+	<!-- newModel(scene, "data/hiro.patt", 'models/animated_deer.glb'); -->
+	newModel(scene, "data/kanji.patt", 'models/sapin.glb');
+	<!-- newModel(scene, "data/letterA.patt", 'models/belt.gltf'); -->
+	<!-- newModel(scene, "data/letterB.patt", 'models/present.glb'); -->
+	<!-- newModel(scene, "data/letterC.patt", 'models/present2.glb'); -->
+}
 
-	// build markerControls
-	markerRoot1 = new THREE.Group();
-	scene.add(markerRoot1);
-	let markerControls1 = new THREEx.ArMarkerControls(arToolkitContext, markerRoot1, {
-		type: 'pattern', patternUrl: "data/hiro.patt",
+function newModel(scene, patternToMatch, modelURL)
+{
+
+	let markerRoot = new THREE.Group();
+	scene.add(markerRoot);
+	let markerControls = new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
+		type: 'pattern', patternUrl: patternToMatch,
 	})
-
-	let geometry1 = new THREE.PlaneBufferGeometry(1,1, 4,4);
-	let loader = new THREE.TextureLoader();
-	// let texture = loader.load( 'images/earth.jpg', render );
-	let material1 = new THREE.MeshBasicMaterial( { color: 0x0000ff, opacity: 0.5 } );
-	mesh1 = new THREE.Mesh( geometry1, material1 );
-	mesh1.rotation.x = -Math.PI/2;
-	markerRoot1.add( mesh1 );
 	
 	function onProgress(xhr) { console.log( (xhr.loaded / xhr.total * 100) + '% loaded' ); }
 	function onError(xhr) { console.log( 'An error happened' ); }
 	
-	new THREE.MTLLoader()
-		.setPath( 'models/' )
-		.load( 'sapin.mtl', function ( materials ) {
-			materials.preload();
-			new THREE.OBJLoader()
-				.setMaterials( materials )
-				.setPath( 'models/' )
-				.load( 'sapin.obj', function ( group ) {
-					mesh0 = group.children[0];
-					mesh0.material.side = THREE.DoubleSide;
-					mesh0.position.y = 0.25;
-					mesh0.scale.set(0.25,0.25,0.25);
-					markerRoot1.add(mesh0);
-				}, onProgress, onError );
-		});
+	// Instantiate a loader
+		var loader = new THREE.GLTFLoader();
+
+
+		// Load a glTF resource
+		loader.load(
+			// resource URL
+			modelURL,
+			// called when the resource is loaded
+			function ( gltf ) {
+
+				markerRoot.add( gltf.scene );
+
+				//gltf.animations; // Array<THREE.AnimationClip>
+				const model = gltf.scene;
+				console.log(gltf);
+				mixer = new THREE.AnimationMixer( model );
+				gltf.animations.forEach(( clip ) => {
+					mixer.clipAction(clip).play();
+				});
+				gltf.scene; // THREE.Scene
+				gltf.scenes; // Array<THREE.Scene>
+				gltf.cameras; // Array<THREE.Camera>
+				gltf.asset; // Object
+
+			},
+			// called while loading is progressing
+			function ( xhr ) {
+
+				console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+			},
+			// called when loading has errors
+			function ( error ) {
+
+				console.log( 'An error happened' );
+
+			}
+		);
 }
 
 
@@ -149,24 +163,20 @@ function update()
 	if ( arToolkitSource.ready !== false )
 		arToolkitContext.update( arToolkitSource.domElement );
 }
-
-
 function render()
 {
 	renderer.render( scene, camera );
 }
-
-
 function animate()
 {
 	requestAnimationFrame(animate);
-	deltaTime = clock.getDelta();
 	totalTime += deltaTime;
+	mixer.update(clock.getDelta());
 	update();
 	render();
 }
-
 </script>
 
 </body>
 </html>
+
