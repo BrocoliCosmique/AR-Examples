@@ -130,6 +130,7 @@ function newModel(scene, patternToMatch, modelURL)
 
 				//gltf.animations; // Array<THREE.AnimationClip>
 				const model = gltf.scene;
+				console.log(gltf);
 				mixer = new THREE.AnimationMixer( model );
 				gltf.animations.forEach(( clip ) => {
 					mixer.clipAction(clip).play();
