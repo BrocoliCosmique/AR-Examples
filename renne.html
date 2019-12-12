@@ -187,8 +187,8 @@ function holeModel(scene, patternToMatch, modelURL)
 	markerRoot.add( mesh1 );
 	
 	// the invisibility cloak (box with a hole)
-	let geometry0 = new THREE.BoxGeometry(2,2,2);
-	geometry0.faces.splice(4, 2); // make hole by removing top two triangles
+	let geometry0 = new THREE.BoxGeometry(8,8,8);
+	geometry0.faces.splice(16,8); // make hole by removing top two triangles
 	
 	let material0 = new THREE.MeshBasicMaterial({
 		colorWrite: false
@@ -199,43 +199,43 @@ function holeModel(scene, patternToMatch, modelURL)
 	mesh0.position.y = -1;
 	markerRoot.add(mesh0);	
 	
-	//var loader2leretour = new THREE.GLTFLoader();
-	//
-	//// Load a glTF resource
-	//loader2leretour.load(
-	//		// resource URL
-	//		modelURL,
-	//		// called when the resource is loaded
-	//		function ( gltf ) {
-	//
-	//			markerRoot.add( gltf.scene );
-	//
-	//			//gltf.animations; // Array<THREE.AnimationClip>
-	//			const model = gltf.scene;
-	//			console.log(gltf);
-	//			mixer = new THREE.AnimationMixer( model );
-	//			gltf.animations.forEach(( clip ) => {
-	//				mixer.clipAction(clip).play();
-	//			});
-	//			gltf.scene; // THREE.Scene
-	//			gltf.scenes; // Array<THREE.Scene>
-	//			gltf.cameras; // Array<THREE.Camera>
-	//			gltf.asset; // Object
-	//
-	//		},
-	//		// called while loading is progressing
-	//		function ( xhr ) {
-	//
-	//			console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-	//
-	//		},
-	//		// called when loading has errors
-	//		function ( error ) {
-	//
-	//			console.log( 'An error happened' );
-	//
-	//		}
-	//	);
+	var loader2leretour = new THREE.GLTFLoader();
+	
+	// Load a glTF resource
+	loader2leretour.load(
+			// resource URL
+			modelURL,
+			// called when the resource is loaded
+			function ( gltf ) {
+	
+				markerRoot.add( gltf.scene );
+	
+				//gltf.animations; // Array<THREE.AnimationClip>
+				const model = gltf.scene;
+				console.log(gltf);
+				mixer = new THREE.AnimationMixer( model );
+				gltf.animations.forEach(( clip ) => {
+					mixer.clipAction(clip).play();
+				});
+				gltf.scene; // THREE.Scene
+				gltf.scenes; // Array<THREE.Scene>
+				gltf.cameras; // Array<THREE.Camera>
+				gltf.asset; // Object
+	
+			},
+			// called while loading is progressing
+			function ( xhr ) {
+	
+				console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+	
+			},
+			// called when loading has errors
+			function ( error ) {
+	
+				console.log( 'An error happened' );
+	
+			}
+		);
 }
 
 
