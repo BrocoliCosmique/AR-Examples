@@ -216,7 +216,7 @@ function holeModel(scene, patternToMatch, modelURL)
 				const model = gltf.scene;
 				console.log("pouetpouet");
 				console.log(model);
-				model.position.z = -cubeSize*2;
+				model.position.z = cubeSize;
 				console.log(gltf);
 				mixer = new THREE.AnimationMixer( model );
 				gltf.animations.forEach(( clip ) => {
