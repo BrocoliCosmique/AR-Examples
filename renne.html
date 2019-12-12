@@ -170,11 +170,15 @@ function holeModel(scene, patternToMatch, modelURL)
 		type : 'pattern',
 		patternUrl : patternToMatch,
 	})
-	let cubeSize = 2;
+	
+	
+	let cubeSize = 3;
+	
+	
 	// the inside of the hole
 	let geometry1	= new THREE.CubeGeometry(cubeSize*4,cubeSize*12,cubeSize*3);
 	let loader = new THREE.TextureLoader();
-	let texture = loader.load( 'images/tiles.jpg' );
+	let texture = loader.load( 'images/atelier.jpg' );
 	let material1	= new THREE.MeshLambertMaterial({
 		transparent : true,
 		map: texture,
@@ -214,6 +218,7 @@ function holeModel(scene, patternToMatch, modelURL)
 				const model = gltf.scene;
 				console.log("pouetpouet");
 				console.log(model);
+				model.position.z = -cubeSize*2;
 				console.log(gltf);
 				mixer = new THREE.AnimationMixer( model );
 				gltf.animations.forEach(( clip ) => {
