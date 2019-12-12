@@ -29,7 +29,7 @@ var scene, camera, renderer, clock, deltaTime, totalTime;
 var arToolkitSource, arToolkitContext;
 <!-- var markerRoot1; -->
 <!-- var mesh1; -->
-<!-- let mixer; // Ajout pour GLTF -- Cyril -->
+		let mixer; // Ajout pour GLTF -- Cyril
 initialize();
 animate();
 function initialize()
@@ -96,68 +96,15 @@ function initialize()
 	// setup markerRoots
 	////////////////////////////////////////////////////////////
 	
+	newModel(scene, "data/kanji.patt", 'models/sapin.glb');
+	newModel(scene, "data/letterA.patt", 'models/arrow.glb');
+	newModel(scene, "data/pattern-vignette_rosace.patt", 'models/present.glb'); 
+	//newModel(scene, "data/letterC.patt", 'models/present2.glb'); 
+	newModel(scene, "data/letterC.patt", 'models/pipe.glb'); 
 	newModel(scene, "data/hiro.patt", 'models/animated_deer.glb');
-	<!-- newModel(scene, "data/kanji.patt", 'models/sapin.glb'); -->
-	<!-- newModel(scene, "data/letterA.patt", 'models/belt.gltf'); -->
-	<!-- newModel(scene, "data/letterB.patt", 'models/present.glb'); -->
-	<!-- newModel(scene, "data/letterC.patt", 'models/present2.glb'); -->
-	singleMarkerHole(scene, "data/hiro.patt");
 }
-
-function singleMarkerHole(scene, patternToMatch){
-	let markerRoot = new THREE.Group();
-	scene.add(markerRoot);
-	let markerControls = new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
-		type: 'pattern', patternUrl: patternToMatch,
-	})
-	
-	function onProgress(xhr) { console.log( (xhr.loaded / xhr.total * 100) + '% loaded' ); }
-	function onError(xhr) { console.log( 'An error happened' ); }
-	
-	sceneGroup = new THREE.Group();
-	
-	// the inside of the hole
-	let geometry1	= new THREE.CubeGeometry(5*1.25, 2, 3*1.25);
-	let loader = new THREE.TextureLoader();
-	let texture = loader.load( 'images/tiles.jpg', render );
-	let material1	= new THREE.MeshLambertMaterial({
-		transparent : true,
-		map: texture,
-		side: THREE.BackSide
-	}); 
-	
-	mesh1 = new THREE.Mesh( geometry1, material1 );
-	mesh1.position.y = -1;
-	
-	sceneGroup.add( mesh1 );
-	
-	// the invisibility cloak (plane with a hole)
-	let geometry0 = new THREE.PlaneGeometry(18,18, 9,9);
-	geometry0.faces.splice(80, 2); // make hole by removing top two triangles
-	geometry0.faceVertexUvs[0].splice(80, 2);
-	
-	let material0 = new THREE.MeshBasicMaterial({
-	    // map: loader.load( 'images/color-grid.png' ), // for testing placement
-		colorWrite: false,
-		// transparent: true,
-		// opacity: 0.4
-		// wireframe:true
-	});
-	
-	
-	let mesh0 = new THREE.Mesh( geometry0, material0 );
-	mesh0.scale.set(3,2,1);
-	
-	mesh0.rotation.x = -Math.PI/2;
-	sceneGroup.add(mesh0);	
-	scene.add(sceneGroup);
-	
-}
-
-
 function newModel(scene, patternToMatch, modelURL)
 {
-
 	let markerRoot = new THREE.Group();
 	scene.add(markerRoot);
 	let markerControls = new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
@@ -169,17 +116,13 @@ function newModel(scene, patternToMatch, modelURL)
 	
 	// Instantiate a loader
 		var loader = new THREE.GLTFLoader();
-		var mixer;
-
 		// Load a glTF resource
 		loader.load(
 			// resource URL
 			modelURL,
 			// called when the resource is loaded
 			function ( gltf ) {
-
 				markerRoot.add( gltf.scene );
-
 				//gltf.animations; // Array<THREE.AnimationClip>
 				const model = gltf.scene;
 				console.log(gltf);
@@ -191,33 +134,19 @@ function newModel(scene, patternToMatch, modelURL)
 				gltf.scenes; // Array<THREE.Scene>
 				gltf.cameras; // Array<THREE.Camera>
 				gltf.asset; // Object
-
 			},
 			// called while loading is progressing
 			function ( xhr ) {
-
 				console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-
 			},
 			// called when loading has errors
 			function ( error ) {
-
 				console.log( 'An error happened' );
-
 			}
 		);
 }
-
-
-
-
-
-
 function update()
 {
-
-	
-
 	// update artoolkit on every frame
 	if ( arToolkitSource.ready !== false )
 		arToolkitContext.update( arToolkitSource.domElement );
@@ -238,4 +167,3 @@ function animate()
 
 </body>
 </html>
-
