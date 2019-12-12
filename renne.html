@@ -209,9 +209,11 @@ function holeModel(scene, patternToMatch, modelURL)
 			function ( gltf ) {
 	
 				markerRoot.add( gltf.scene );
-	
+				
 				//gltf.animations; // Array<THREE.AnimationClip>
 				const model = gltf.scene;
+				console.log("pouetpouet");
+				console.log(model);
 				console.log(gltf);
 				mixer = new THREE.AnimationMixer( model );
 				gltf.animations.forEach(( clip ) => {
