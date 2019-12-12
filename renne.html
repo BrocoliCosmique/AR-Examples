@@ -188,7 +188,7 @@ function holeModel(scene, patternToMatch, modelURL)
 	
 	// the invisibility cloak (box with a hole)
 	let geometry0 = new THREE.BoxGeometry(8,8,8);
-	geometry0.faces.splice(16,8); // make hole by removing top two triangles
+	geometry0.faces.splice(4, 2); // make hole by removing top two triangles
 	
 	let material0 = new THREE.MeshBasicMaterial({
 		colorWrite: false
