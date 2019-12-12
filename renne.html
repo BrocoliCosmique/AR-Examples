@@ -30,8 +30,6 @@ var arToolkitSource, arToolkitContext;
 <!-- var markerRoot1; -->
 <!-- var mesh1; -->
 		let mixer; // Ajout pour GLTF -- Cyril
-initialize();
-animate();
 function initialize()
 {
 	scene = new THREE.Scene();
@@ -265,6 +263,8 @@ function animate()
 	update();
 	render();
 }
+initialize();
+animate();
 </script>
 
 </body>
