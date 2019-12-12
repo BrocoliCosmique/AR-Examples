@@ -195,47 +195,47 @@ function holeModel(scene, patternToMatch, modelURL)
 	});
 	
 	let mesh0 = new THREE.Mesh( geometry0, material0 );
-	mesh0.scale.set(4,4,4).multiplyScalar(1.01);
+	mesh0.scale.set(1,1,1).multiplyScalar(1.01);
 	mesh0.position.y = -1;
 	markerRoot.add(mesh0);	
 	
-	var loader2leretour = new THREE.GLTFLoader();
-
-	// Load a glTF resource
-	loader2leretour.load(
-			// resource URL
-			modelURL,
-			// called when the resource is loaded
-			function ( gltf ) {
-
-				markerRoot.add( gltf.scene );
-
-				//gltf.animations; // Array<THREE.AnimationClip>
-				const model = gltf.scene;
-				console.log(gltf);
-				mixer = new THREE.AnimationMixer( model );
-				gltf.animations.forEach(( clip ) => {
-					mixer.clipAction(clip).play();
-				});
-				gltf.scene; // THREE.Scene
-				gltf.scenes; // Array<THREE.Scene>
-				gltf.cameras; // Array<THREE.Camera>
-				gltf.asset; // Object
-
-			},
-			// called while loading is progressing
-			function ( xhr ) {
-
-				console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-
-			},
-			// called when loading has errors
-			function ( error ) {
-
-				console.log( 'An error happened' );
-
-			}
-		);
+	//var loader2leretour = new THREE.GLTFLoader();
+	//
+	//// Load a glTF resource
+	//loader2leretour.load(
+	//		// resource URL
+	//		modelURL,
+	//		// called when the resource is loaded
+	//		function ( gltf ) {
+	//
+	//			markerRoot.add( gltf.scene );
+	//
+	//			//gltf.animations; // Array<THREE.AnimationClip>
+	//			const model = gltf.scene;
+	//			console.log(gltf);
+	//			mixer = new THREE.AnimationMixer( model );
+	//			gltf.animations.forEach(( clip ) => {
+	//				mixer.clipAction(clip).play();
+	//			});
+	//			gltf.scene; // THREE.Scene
+	//			gltf.scenes; // Array<THREE.Scene>
+	//			gltf.cameras; // Array<THREE.Camera>
+	//			gltf.asset; // Object
+	//
+	//		},
+	//		// called while loading is progressing
+	//		function ( xhr ) {
+	//
+	//			console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+	//
+	//		},
+	//		// called when loading has errors
+	//		function ( error ) {
+	//
+	//			console.log( 'An error happened' );
+	//
+	//		}
+	//	);
 }
 
 
