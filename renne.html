@@ -100,8 +100,9 @@ function initialize()
 	newModel(scene, "data/letterA.patt", 'models/arrow.glb');
 	newModel(scene, "data/pattern-vignette_rosace.patt", 'models/present.glb'); 
 	//newModel(scene, "data/letterC.patt", 'models/present2.glb'); 
-	newModel(scene, "data/letterC.patt", 'models/pipe.glb'); 
+	// newModel(scene, "data/letterC.patt", 'models/pipe.glb'); 
 	newModel(scene, "data/hiro.patt", 'models/animated_deer.glb');
+	holeModel(scene, "data/letterC.patt", 'models/pipe.glb'); 
 }
 
 function newModel(scene, patternToMatch, modelURL)
@@ -156,6 +157,87 @@ function newModel(scene, patternToMatch, modelURL)
 			}
 		);
 }
+
+
+
+function holeModel(scene, patternToMatch, modelURL)
+{
+
+	let markerRoot = new THREE.Group();
+	markerRoot.name = 'marker1';
+	scene.add(markerRoot);
+	let markerControls1 = new THREEx.ArMarkerControls(arToolkitContext, markerRoot1, {
+		type : 'pattern',
+		patternUrl : patternToMatch,
+	})
+
+	// the inside of the hole
+	let geometry1	= new THREE.CubeGeometry(2,2,2);
+	let loader = new THREE.TextureLoader();
+	let texture = loader.load( 'images/tiles.jpg' );
+	let material1	= new THREE.MeshLambertMaterial({
+		transparent : true,
+		map: texture,
+		side: THREE.BackSide
+	}); 
+	
+	mesh1 = new THREE.Mesh( geometry1, material1 );
+	mesh1.position.y = -1;
+	
+	markerRoot.add( mesh1 );
+	
+	// the invisibility cloak (box with a hole)
+	let geometry0 = new THREE.BoxGeometry(2,2,2);
+	geometry0.faces.splice(4, 2); // make hole by removing top two triangles
+	
+	let material0 = new THREE.MeshBasicMaterial({
+		colorWrite: false
+	});
+	
+	let mesh0 = new THREE.Mesh( geometry0, material0 );
+	mesh0.scale.set(4,4,4).multiplyScalar(1.01);
+	mesh0.position.y = -1;
+	markerRoot.add(mesh0);	
+	
+	var loader = new THREE.GLTFLoader();
+
+	// Load a glTF resource
+	loader.load(
+			// resource URL
+			modelURL,
+			// called when the resource is loaded
+			function ( gltf ) {
+
+				markerRoot.add( gltf.scene );
+
+				//gltf.animations; // Array<THREE.AnimationClip>
+				const model = gltf.scene;
+				console.log(gltf);
+				mixer = new THREE.AnimationMixer( model );
+				gltf.animations.forEach(( clip ) => {
+					mixer.clipAction(clip).play();
+				});
+				gltf.scene; // THREE.Scene
+				gltf.scenes; // Array<THREE.Scene>
+				gltf.cameras; // Array<THREE.Camera>
+				gltf.asset; // Object
+
+			},
+			// called while loading is progressing
+			function ( xhr ) {
+
+				console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+			},
+			// called when loading has errors
+			function ( error ) {
+
+				console.log( 'An error happened' );
+
+			}
+		);
+}
+
 
 
 function update()
