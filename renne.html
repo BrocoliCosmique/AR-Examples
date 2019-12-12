@@ -166,7 +166,7 @@ function holeModel(scene, patternToMatch, modelURL)
 	let markerRoot = new THREE.Group();
 	markerRoot.name = 'marker1';
 	scene.add(markerRoot);
-	let markerControls1 = new THREEx.ArMarkerControls(arToolkitContext, markerRoot1, {
+	let markerControls1 = new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
 		type : 'pattern',
 		patternUrl : patternToMatch,
 	})
