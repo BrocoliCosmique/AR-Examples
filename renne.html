@@ -170,11 +170,11 @@ function holeModel(scene, patternToMatch, modelURL)
 	})
 	
 	
-	let cubeSize = 3;
+	let cubeSize = 4.5;
 	
 	
 	// the inside of the hole
-	let geometry1	= new THREE.CubeGeometry(cubeSize*4,cubeSize*12,cubeSize*3);
+	let geometry1	= new THREE.CubeGeometry(cubeSize*3,cubeSize*12,cubeSize*2);
 	let loader = new THREE.TextureLoader();
 	let texture = loader.load( 'images/atelier.jpg' );
 	let material1	= new THREE.MeshLambertMaterial({
@@ -189,7 +189,7 @@ function holeModel(scene, patternToMatch, modelURL)
 	markerRoot.add( mesh1 );
 	
 	// the invisibility cloak (box with a hole)
-	let geometry0 = new THREE.BoxGeometry(cubeSize*4,cubeSize*12,cubeSize*3);
+	let geometry0 = new THREE.BoxGeometry(cubeSize*3,cubeSize*12,cubeSize*2);
 	geometry0.faces.splice(4, 2); // make hole by removing top two triangles
 	
 	let material0 = new THREE.MeshBasicMaterial({
