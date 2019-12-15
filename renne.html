@@ -33,8 +33,12 @@ var arToolkitSource, arToolkitContext;
 function initialize()
 {
 	scene = new THREE.Scene();
-	let ambientLight = new THREE.AmbientLight( 0xcccccc, 4.0 );
+	let ambientLight = new THREE.AmbientLight( 0xcccccc, 2.0 );
 	scene.add( ambientLight );
+	//++
+	var directionalLight = new THREE.DirectionalLight( 0xffffff, 2.0 );
+	directionalLight.position.set( 0, 1, 0);
+	scene.add(directionalLight);
 				
 	camera = new THREE.Camera();
 	scene.add(camera);
