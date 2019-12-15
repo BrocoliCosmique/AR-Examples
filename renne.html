@@ -188,32 +188,32 @@ function holeModel(scene, patternToMatch, modelURL)
 	}); 
 	var materials = [
        new THREE.MeshLambertMaterial({
-           map: THREE.ImageUtils.loadTexture('images/atelier.jpg'),
+           map: THREE.ImageUtils.loadTexture('images/bois.jpg'), //droite
 		transparent : true,
 		side: THREE.BackSide
        }),
        new THREE.MeshLambertMaterial({
-           map: THREE.ImageUtils.loadTexture('images/tiles.jpg'),
+           map: THREE.ImageUtils.loadTexture('images/bois.jpg'), //gauche
 		transparent : true,
 		side: THREE.BackSide
        }),
        new THREE.MeshLambertMaterial({
-           map: THREE.ImageUtils.loadTexture('images/bois.jpg'),
+           map: THREE.ImageUtils.loadTexture('images/bois.jpg'), //façade
 		transparent : true,
 		side: THREE.BackSide
        }),
        new THREE.MeshLambertMaterial({
-           map: THREE.ImageUtils.loadTexture('images/church/negy.jpg'),
+           map: THREE.ImageUtils.loadTexture('images/atelier.jpg'), //fond
 		transparent : true,
 		side: THREE.BackSide
        }),
        new THREE.MeshLambertMaterial({
-           map: THREE.ImageUtils.loadTexture('images/church/posy.png'),
+           map: THREE.ImageUtils.loadTexture('images/tiles.jpg'), //bas
 		transparent : true,
 		side: THREE.BackSide
        }),
        new THREE.MeshLambertMaterial({
-           map: THREE.ImageUtils.loadTexture('images/noise.jpg'),
+           map: THREE.ImageUtils.loadTexture('images/glow.png'), //haut
 		transparent : true,
 		side: THREE.BackSide
        })
