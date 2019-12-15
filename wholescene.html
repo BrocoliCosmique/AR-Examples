@@ -177,7 +177,7 @@ function holeModel(scene, patternToMatch, modelURL)
 	
 	let cubeSize = 4.5;
 	let cubeX = cubeSize*3;
-	let cubeY = cubeSize*8;
+	let cubeY = cubeSize*6;
 	let cubeZ = cubeSize*2;
 	
 	
@@ -191,7 +191,40 @@ function holeModel(scene, patternToMatch, modelURL)
 		side: THREE.BackSide
 	}); 
 	
-	mesh1 = new THREE.Mesh( geometry1, material1 );
+	var materials = [
+       new THREE.MeshLambertMaterial({
+           map: THREE.ImageUtils.loadTexture('images/bois.jpg'), //droite
+		transparent : true,
+		side: THREE.BackSide
+       }),
+       new THREE.MeshLambertMaterial({
+           map: THREE.ImageUtils.loadTexture('images/bois.jpg'), //gauche
+		transparent : true,
+		side: THREE.BackSide
+       }),
+       new THREE.MeshLambertMaterial({
+           map: THREE.ImageUtils.loadTexture('images/bois.jpg'), //façade
+		transparent : true,
+		side: THREE.BackSide
+       }),
+       new THREE.MeshLambertMaterial({
+           map: THREE.ImageUtils.loadTexture('images/atelier.jpg'), //fond
+		transparent : true,
+		side: THREE.BackSide
+       }),
+       new THREE.MeshLambertMaterial({
+           map: THREE.ImageUtils.loadTexture('images/tiles.jpg'), //bas
+		transparent : true,
+		side: THREE.BackSide
+       }),
+       new THREE.MeshLambertMaterial({
+           map: THREE.ImageUtils.loadTexture('images/glow.png'), //haut
+		transparent : true,
+		side: THREE.BackSide
+       })
+    ];
+	
+	mesh1 = new THREE.Mesh( geometry1, materials );
 	mesh1.position.y = -cubeY/2;
 	
 	markerRoot.add( mesh1 );
