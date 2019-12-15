@@ -177,7 +177,7 @@ function holeModel(scene, patternToMatch, modelURL)
 	
 	let cubeSize = 4.5;
 	let cubeX = cubeSize*3;
-	let cubeY = cubeSize*6;
+	let cubeY = cubeSize*4;
 	let cubeZ = cubeSize*2;
 	
 	
@@ -213,12 +213,14 @@ function holeModel(scene, patternToMatch, modelURL)
 		side: THREE.BackSide
        }),
        new THREE.MeshLambertMaterial({
-           map: THREE.ImageUtils.loadTexture('images/tiles.jpg'), //bas
+           //map: THREE.ImageUtils.loadTexture('images/tiles.jpg'), //bas
+           map: THREE.ImageUtils.loadTexture('images/floor.jpg'), //bas
 		transparent : true,
 		side: THREE.BackSide
        }),
        new THREE.MeshLambertMaterial({
-           map: THREE.ImageUtils.loadTexture('images/glow.png'), //haut
+           //map: THREE.ImageUtils.loadTexture('images/glow.png'), //haut
+           map: THREE.ImageUtils.loadTexture('images/ceiling.png'), //haut
 		transparent : true,
 		side: THREE.BackSide
        })
