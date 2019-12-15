@@ -33,7 +33,7 @@ var arToolkitSource, arToolkitContext;
 function initialize()
 {
 	scene = new THREE.Scene();
-	let ambientLight = new THREE.AmbientLight( 0xcccccc, 4.0 );
+	let ambientLight = new THREE.AmbientLight( 0xcccccc, 2.0 );
 	scene.add( ambientLight );
 	//++
 	var directionalLight = new THREE.DirectionalLight( 0xffffff, 2.0 );
@@ -220,7 +220,7 @@ function holeModel(scene, patternToMatch, modelURL)
        }),
        new THREE.MeshLambertMaterial({
            //map: THREE.ImageUtils.loadTexture('images/glow.png'), //haut
-           map: THREE.ImageUtils.loadTexture('images/ceiling.png'), //haut
+           map: THREE.ImageUtils.loadTexture('images/ceiling.jpg'), //haut
 		transparent : true,
 		side: THREE.BackSide
        })
