@@ -186,6 +186,26 @@ function holeModel(scene, patternToMatch, modelURL)
 		map: texture,
 		side: THREE.BackSide
 	}); 
+	var materials = [
+       new THREE.MeshLambertMaterial({
+           map: THREE.ImageUtils.loadTexture('images/atelier.jpg')
+       }),
+       new THREE.MeshLambertMaterial({
+           map: THREE.ImageUtils.loadTexture('images/tiles.jpg')
+       }),
+       new THREE.MeshLambertMaterial({
+           map: THREE.ImageUtils.loadTexture('images/bois.jpg')
+       }),
+       new THREE.MeshLambertMaterial({
+           map: THREE.ImageUtils.loadTexture('images/church/negy.jpg')
+       }),
+       new THREE.MeshLambertMaterial({
+           map: THREE.ImageUtils.loadTexture('images/church/posy.png')
+       }),
+       new THREE.MeshLambertMaterial({
+           map: THREE.ImageUtils.loadTexture('images/noise.jpg')
+       })
+    ];
 	
 	mesh1 = new THREE.Mesh( geometry1, material1 );
 	mesh1.position.y = -cubeSize*4;
