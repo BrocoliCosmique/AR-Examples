@@ -298,7 +298,13 @@ function initialize()
 		// Load a glTF resource
 		g_loader.load('models/Choco.glb',			
 			    function ( gltf ) {
-				sceneGroup.add( gltf.scene )
+				sceneGroup.add( gltf.scene );
+				/*gltf.animations;
+				gltf.scene; // THREE.Scene
+				gltf.scenes; // Array<THREE.Scene>
+				gltf.cameras; // Array<THREE.Camera>
+				gltf.asset; // Object
+				*/
 		});
    
 
