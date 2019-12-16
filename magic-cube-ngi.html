@@ -222,13 +222,7 @@ function initialize()
 		sceneGroup.add(sphereMesh);
 	}*/
 	
-	/*CYRIL*/
-	var g_loader = new THREE.GLTFLoader();
-		// Load a glTF resource
-		g_loader.load('models/Choco.glb',			
-			    function ( gltf ) {
-				sceneGroup.add( gltf.scene )
-		});
+
 	
 	
 	// cube edges
@@ -293,12 +287,19 @@ function initialize()
 	);
 	*/
     
-    var geometry   = new THREE.SphereGeometry(0.6, 32, 32);
+    /*var geometry   = new THREE.SphereGeometry(0.6, 32, 32);
     var material  = new THREE.MeshPhongMaterial();
     material.map    = THREE.ImageUtils.loadTexture('images/earthmap1k.jpg');
     var earthMesh = new THREE.Mesh(geometry, material);
     earthMesh.rotation.x = -Math.PI / 4;
-    sceneGroup.add(earthMesh);
+    sceneGroup.add(earthMesh);*/
+		/*CYRIL*/
+	var g_loader = new THREE.GLTFLoader();
+		// Load a glTF resource
+		g_loader.load('models/Choco.glb',			
+			    function ( gltf ) {
+				sceneGroup.add( gltf.scene )
+		});
    
 
     
