@@ -29,7 +29,7 @@ var myScene, camera, renderer, clock, deltaTime, totalTime;
 var arToolkitSource, arToolkitContext;
 <!-- var markerRoot1; -->
 <!-- var mesh1; -->
-let mixer; // Ajout pour GLTF -- Cyril
+let mixers; // Ajout pour GLTF -- Cyril
 function initialize()
 {
 	myScene = new THREE.Scene();
@@ -136,10 +136,11 @@ function newModel(myScene, patternToMatch, modelURL)
 				//gltf.animations; // Array<THREE.AnimationClip>
 				const model = gltf.scene;
 				console.log(gltf);
-				mixer = new THREE.AnimationMixer( model );
+				let mixer = new THREE.AnimationMixer( model );
 				gltf.animations.forEach(( clip ) => {
 					mixer.clipAction(clip).play();
 				});
+				mixers.push(mixer);
 				gltf.scene; // THREE.scene
 				gltf.scenes; // Array<THREE.scene>
 				gltf.cameras; // Array<THREE.Camera>
@@ -261,10 +262,11 @@ function holeModel(myScene, patternToMatch, modelURL)
 				console.log(model);
 				model.position.z = (cubeZ/2)-1;
 				console.log(gltf);
-				mixer = new THREE.AnimationMixer( model );
+				let mixer = new THREE.AnimationMixer( model );
 				gltf.animations.forEach(( clip ) => {
 					mixer.clipAction(clip).play();
 				});
+				mixers.push(mixer);
 				gltf.scene; // THREE.scene
 				gltf.scenes; // Array<THREE.scene>
 				gltf.cameras; // Array<THREE.Camera>
@@ -302,7 +304,9 @@ function animate()
 {
 	requestAnimationFrame(animate);
 	totalTime += deltaTime;
-	mixer.update(clock.getDelta());
+	mixers.forEach(( mixer ) => {
+		mixer.update(clock.getDelta());
+	});
 	update();
 	render();
 }
