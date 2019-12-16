@@ -137,7 +137,7 @@ function newModel(myScene, patternToMatch, modelURL)
 				const model = gltf.scene;
 				console.log(gltf);
 				let mixer = new THREE.AnimationMixer( model );
-				if (gltf.animations.length() > 0){
+				if (gltf.animations.length > 0){
 					gltf.animations.forEach(( clip ) => {
 						mixer.clipAction(clip).play();
 					});
@@ -265,7 +265,7 @@ function holeModel(myScene, patternToMatch, modelURL)
 				model.position.z = (cubeZ/2)-1;
 				console.log(gltf);
 				let mixer = new THREE.AnimationMixer( model );
-				if (gltf.animations.length() > 0){
+				if (gltf.animations.length > 0){
 					gltf.animations.forEach(( clip ) => {
 						mixer.clipAction(clip).play();
 					});
