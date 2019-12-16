@@ -193,12 +193,12 @@ function holeModel(scene, patternToMatch, modelURL)
 	
 	var materials = [
        new THREE.MeshLambertMaterial({
-           map: THREE.ImageUtils.loadTexture('images/bois.jpg'), //droite
+           map: THREE.ImageUtils.loadTexture('images/atelierdroite.jpg'), //droite
 		transparent : true,
 		side: THREE.BackSide
        }),
        new THREE.MeshLambertMaterial({
-           map: THREE.ImageUtils.loadTexture('images/bois.jpg'), //gauche
+           map: THREE.ImageUtils.loadTexture('images/ateliergauche.jpg'), //gauche
 		transparent : true,
 		side: THREE.BackSide
        }),
@@ -208,19 +208,19 @@ function holeModel(scene, patternToMatch, modelURL)
 		side: THREE.BackSide
        }),
        new THREE.MeshLambertMaterial({
-           map: THREE.ImageUtils.loadTexture('images/atelier.jpg'), //fond
+           map: THREE.ImageUtils.loadTexture('images/atelierfond.jpg'), //fond
 		transparent : true,
 		side: THREE.BackSide
        }),
        new THREE.MeshLambertMaterial({
            //map: THREE.ImageUtils.loadTexture('images/tiles.jpg'), //bas
-           map: THREE.ImageUtils.loadTexture('images/floor.jpg'), //bas
+           map: THREE.ImageUtils.loadTexture('images/ateliersol.jpg'), //bas
 		transparent : true,
 		side: THREE.BackSide
        }),
        new THREE.MeshLambertMaterial({
            //map: THREE.ImageUtils.loadTexture('images/glow.png'), //haut
-           map: THREE.ImageUtils.loadTexture('images/ceiling.jpg'), //haut
+           map: THREE.ImageUtils.loadTexture('images/atelierplafond.jpg'), //haut
 		transparent : true,
 		side: THREE.BackSide
        })
