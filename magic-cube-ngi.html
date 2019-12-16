@@ -4,6 +4,7 @@
 	<title>Hello, AR Cube!</title>
 	<!-- include three.js library -->
 	<script src='js/three.js'></script>
+	<script src='js/GLTFLoader.js'></script>
 	<!-- include jsartookit -->
 	<script src="jsartoolkit5/artoolkit.min.js"></script>
 	<script src="jsartoolkit5/artoolkit.api.js"></script>
@@ -198,7 +199,7 @@ function initialize()
 	
 	// cube vertices
 	
-	let sphereGeometry = new THREE.SphereGeometry(0.20, 6,6);
+	/*let sphereGeometry = new THREE.SphereGeometry(0.20, 6,6);
 	
 	let sphereCenters = [ 
 		new THREE.Vector3(-1,-1,-1), new THREE.Vector3(-1,-1,1), new THREE.Vector3(-1,1,-1), new THREE.Vector3(-1,1,1),
@@ -219,7 +220,16 @@ function initialize()
 		);
 		sphereMesh.position.copy( sphereCenters[i] );
 		sceneGroup.add(sphereMesh);
-	}
+	}*/
+	
+	/*CYRIL*/
+	var g_loader = new THREE.GLTFLoader();
+		// Load a glTF resource
+		g_loader.load('models/Choco.glb',			
+			    function ( gltf ) {
+				sceneGroup.add( gltf.scene )
+		});
+	
 	
 	// cube edges
 	
