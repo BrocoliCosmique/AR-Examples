@@ -98,6 +98,7 @@ function initialize()
 	// setup markerRoots
 	////////////////////////////////////////////////////////////
 	
+	holeModel(scene, "data/letterC.patt", 'models/pipe.glb'); 
 	newModel(scene, "data/kanji.patt", 'models/sapin.glb');
 	newModel(scene, "data/pattern-vignette_rosace.patt", 'models/present.glb'); 
 	// newModel(scene, "data/letterD.patt", 'models/Choco.glb'); 
@@ -105,7 +106,6 @@ function initialize()
 	newModel(scene, "data/hiro.patt", 'models/animated_deer.glb');
 	newModel(scene, "data/flechegauche.patt", 'models/arrowleft.glb');
 	newModel(scene, "data/flechedroite.patt", 'models/arrow.glb');
-	holeModel(scene, "data/letterC.patt", 'models/pipe.glb'); 
 }
 
 function newModel(scene, patternToMatch, modelURL)
