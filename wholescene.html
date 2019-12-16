@@ -25,23 +25,23 @@
 -->
 
 <script>
-var scene, camera, renderer, clock, deltaTime, totalTime;
+var myScene, camera, renderer, clock, deltaTime, totalTime;
 var arToolkitSource, arToolkitContext;
 <!-- var markerRoot1; -->
 <!-- var mesh1; -->
 let mixer; // Ajout pour GLTF -- Cyril
 function initialize()
 {
-	scene = new THREE.Scene();
+	myScene = new THREE.scene();
 	let ambientLight = new THREE.AmbientLight( 0xcccccc, 2.0 );
-	scene.add( ambientLight );
+	myScene.add( ambientLight );
 	//++
 	var directionalLight = new THREE.DirectionalLight( 0xffffff, 2.0 );
 	directionalLight.position.set( 0, 1, 0);
-	scene.add(directionalLight);
+	myScene.add(directionalLight);
 				
 	camera = new THREE.Camera();
-	scene.add(camera);
+	myScene.add(camera);
 	renderer = new THREE.WebGLRenderer({
 		antialias : true,
 		alpha: true,
@@ -98,21 +98,21 @@ function initialize()
 	// setup markerRoots
 	////////////////////////////////////////////////////////////
 	
-	holeModel(scene, "data/letterC.patt", 'models/pipe.glb'); 
-	newModel(scene, "data/kanji.patt", 'models/sapin.glb');
-	newModel(scene, "data/pattern-vignette_rosace.patt", 'models/present.glb'); 
-	// newModel(scene, "data/letterD.patt", 'models/Choco.glb'); 
-	// newModel(scene, "data/letterC.patt", 'models/pipe.glb'); 
-	newModel(scene, "data/hiro.patt", 'models/animated_deer.glb');
-	newModel(scene, "data/flechegauche.patt", 'models/arrowleft.glb');
-	newModel(scene, "data/flechedroite.patt", 'models/arrow.glb');
+	holeModel(myScene, "data/letterC.patt", 'models/pipe.glb'); 
+	newModel(myScene, "data/kanji.patt", 'models/sapin.glb');
+	newModel(myScene, "data/pattern-vignette_rosace.patt", 'models/present.glb'); 
+	// newModel(myScene, "data/letterD.patt", 'models/Choco.glb'); 
+	// newModel(myScene, "data/letterC.patt", 'models/pipe.glb'); 
+	newModel(myScene, "data/hiro.patt", 'models/animated_deer.glb');
+	newModel(myScene, "data/flechegauche.patt", 'models/arrowleft.glb');
+	newModel(myScene, "data/flechedroite.patt", 'models/arrow.glb');
 }
 
-function newModel(scene, patternToMatch, modelURL)
+function newModel(myScene, patternToMatch, modelURL)
 {
 
 	let markerRoot = new THREE.Group();
-	scene.add(markerRoot);
+	myScene.add(markerRoot);
 	let markerControls = new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
 		type: 'pattern', patternUrl: patternToMatch,
 	})
@@ -140,8 +140,8 @@ function newModel(scene, patternToMatch, modelURL)
 				gltf.animations.forEach(( clip ) => {
 					mixer.clipAction(clip).play();
 				});
-				gltf.scene; // THREE.Scene
-				gltf.scenes; // Array<THREE.Scene>
+				gltf.scene; // THREE.scene
+				gltf.scenes; // Array<THREE.scene>
 				gltf.cameras; // Array<THREE.Camera>
 				gltf.asset; // Object
 
@@ -163,12 +163,12 @@ function newModel(scene, patternToMatch, modelURL)
 
 
 
-function holeModel(scene, patternToMatch, modelURL)
+function holeModel(myScene, patternToMatch, modelURL)
 {
 
 	let markerRoot = new THREE.Group();
 	markerRoot.name = 'marker1';
-	scene.add(markerRoot);
+	myScene.add(markerRoot);
 	let markerControls1 = new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
 		type : 'pattern',
 		patternUrl : patternToMatch,
@@ -265,8 +265,8 @@ function holeModel(scene, patternToMatch, modelURL)
 				gltf.animations.forEach(( clip ) => {
 					mixer.clipAction(clip).play();
 				});
-				gltf.scene; // THREE.Scene
-				gltf.scenes; // Array<THREE.Scene>
+				gltf.scene; // THREE.scene
+				gltf.scenes; // Array<THREE.scene>
 				gltf.cameras; // Array<THREE.Camera>
 				gltf.asset; // Object
 	
@@ -296,7 +296,7 @@ function update()
 }
 function render()
 {
-	renderer.render( scene, camera );
+	renderer.render( myScene, camera );
 }
 function animate()
 {
